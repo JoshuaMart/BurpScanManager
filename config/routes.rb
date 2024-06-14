@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   get 'users/index'
   devise_for :users, skip: %i[registrations passwords]
