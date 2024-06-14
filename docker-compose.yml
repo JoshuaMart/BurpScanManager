@@ -1,0 +1,37 @@
+services:
+  db:
+    image: postgres:16
+    volumes:
+      - ./tmp/db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: password
+    logging:
+      options:
+        max-file: "1"
+        max-size: "2m"
+
+  dragonfly:
+    image: 'docker.dragonflydb.io/dragonflydb/dragonfly'
+    ulimits:
+      memlock: -1
+    logging:
+      options:
+        max-file: "1"
+        max-size: "2m"
+
+  www:
+    build: .
+    command: bash -c bin/start.sh
+    environment:
+      - SECRET_KEY_BASE=${SECRET_KEY_BASE}
+    volumes:
+      - .:/rails
+    ports:
+      - "3000:3000"
+    depends_on:
+      - 'dragonfly'
+      - 'db'
+    logging:
+      options:
+        max-file: "1"
+        max-size: "2m"
