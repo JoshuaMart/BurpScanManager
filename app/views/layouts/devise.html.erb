@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Burp Scan Manager</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+  </head>
+
+  <body>
+  	<% if notice %>
+		<div aria-live="polite" aria-atomic="true" class="position-relative">
+		  <div class="toast-container position-fixed top-0 end-0 p-3">
+		    <div class="toast mt-2 align-items-center text-white bg-success border-0 fade show" role="alert" aria-live="assertive" aria-atomic="true">
+	      <div class="d-flex">
+	        <div class="toast-body"><%= notice %></div>
+	        <button class="btn-close btn-close-white me-2 m-auto" type="button" data-coreui-dismiss="toast" aria-label="Close"></button>
+	      </div>
+	    </div>
+		  </div>
+		</div>
+		<% end %>
+
+		<% if alert %>
+		<div aria-live="polite" aria-atomic="true" class="position-relative">
+		  <div class="toast-container position-fixed top-0 end-0 p-3">
+		    <div class="toast mt-2 align-items-center text-white bg-danger border-0 fade show" role="alert" aria-live="assertive" aria-atomic="true">
+	      <div class="d-flex">
+	        <div class="toast-body"><%= alert %></div>
+	        <button class="btn-close btn-close-white me-2 m-auto" type="button" data-coreui-dismiss="toast" aria-label="Close"></button>
+	      </div>
+	    </div>
+		  </div>
+		</div>
+		<% end %>
+
+    <%= yield %>
+
+    <script type="text/javascript">
+    	$(document).ready(function() {
+		    setTimeout(function() {
+		      $(".toast").fadeOut(3000);
+		    }, 1000);
+		  });
+    </script>
+  </body>
+</html>

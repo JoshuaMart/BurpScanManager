@@ -1,0 +1,40 @@
+<div class="card mb-4">
+  <div class="card-header"><strong>Add a new user</strong><span class="small ms-1"></span></div>
+    <div class="card-body">
+      <%= form_with(model: @user, local: true, data: { turbo: false }, url: users_path, method: :post) do |form| %>
+        <div class="mb-3 row">
+          <label for="user_email" class="col-sm-2 col-form-label">Email</label>
+          <div class="col-sm-10">
+            <%= form.email_field :email, id: :user_email, class: 'form-control' %>
+          </div>
+        </div>
+
+        <div class="mb-3 row">
+          <label for="user_username" class="col-sm-2 col-form-label">Username</label>
+          <div class="col-sm-10">
+            <%= form.text_field :username, id: :user_username, class: 'form-control' %>
+          </div>
+        </div>
+
+        <div class="mb-3 row">
+          <label for="user_password" class="col-sm-2 col-form-label">Password</label>
+          <div class="col-sm-10">
+            <%= form.password_field :password, id: :user_password, class: 'form-control' %>
+          </div>
+        </div>
+
+        <div class="mb-3 row">
+          <label for="user_password_confirmation" class="col-sm-2 col-form-label">Password confirmation</label>
+          <div class="col-sm-10">
+            <%= form.password_field :password_confirmation, id: :user_password_confirmation, class: 'form-control' %>
+          </div>
+        </div>
+
+        <div class="actions">
+          <%= form.submit "Create", class: 'btn btn-primary' %>
+        </div>
+      <% end %>
+    </div>
+</div>
+
+<%= link_to 'Back to users', users_path, class: 'btn btn-secondary' %>

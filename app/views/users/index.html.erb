@@ -1,0 +1,33 @@
+<div class="card mb-4">
+  <div class="card-header"><strong>List of users</strong><span class="small ms-1"></span></div>
+    <div class="card-body">
+      <table class="table">
+		  <thead>
+		    <tr>
+		      <th width="10%">ID</th>
+		      <th width="35%">Email</th>
+		      <th width="35%">Username</th>
+		      <th width="20%">Action</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		    <% @users.each do |user| %>
+		      <tr>
+		        <td scope="row"><%= user.id %></td>
+		        <td ><%= user.email %></td>
+		        <td><%= user.username %></td>
+		        <td>
+		          <%= link_to 'Edit', edit_user_path(user), class: "btn btn-primary" %>
+		          <%= link_to 'Delete', user_path(user),
+		                      method: :delete,
+		                      data: { confirm: 'Are you sure you want to delete this user?' },
+		                      class: "btn btn-danger" %>
+		        </td>
+		      </tr>
+		    <% end %>
+		  </tbody>
+		</table>
+    </div>
+</div>
+
+<%= link_to 'Add a new user', new_user_path, class: 'btn btn-success' %>
