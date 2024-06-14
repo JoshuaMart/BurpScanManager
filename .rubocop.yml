@@ -1,0 +1,7 @@
+AllCops:
+  NewCops: enable
+  Exclude:
+    - 'test/**/*'
+    - 'db/**/*'
+    - 'bin/**/*'
+    - 'config/**/*'
