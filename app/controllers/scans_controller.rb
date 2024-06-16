@@ -1,5 +1,6 @@
-# app/controllers/scans_controller.rb
+# frozen_string_literal: true
 
+# ScansController
 class ScansController < ApplicationController
   before_action :check_settings, only: %i[new create]
 

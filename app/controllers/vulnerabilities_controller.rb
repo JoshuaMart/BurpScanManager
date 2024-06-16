@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# VulnerabilitiesController
 class VulnerabilitiesController < ApplicationController
   def index
     @vulnerabilities = Vulnerability.where(status: 'new')

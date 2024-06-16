@@ -5,3 +5,6 @@ AllCops:
     - 'db/**/*'
     - 'bin/**/*'
     - 'config/**/*'
+
+Layout/EndOfLine:
+  Enabled: false

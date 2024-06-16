@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# ScanJob
 class ScanJob
   include Sidekiq::Job
   sidekiq_options queue: :default, retry: false

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # app/controllers/settings_controller.rb
 class SettingsController < ApplicationController
   def index
