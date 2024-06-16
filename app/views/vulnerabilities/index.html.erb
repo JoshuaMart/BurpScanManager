@@ -1,0 +1,31 @@
+<div class="card mb-4">
+  <div class="card-header"><strong>List of vulnerabilities</strong><span class="small ms-1"></span></div>
+    <div class="card-body">
+      <table class="table">
+		  <thead>
+		    <tr>
+		      <th width="20%">Name</th>
+		      <th width="70%">URL</th>
+		      <th width="10%">Action</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		    <% @vulnerabilities.each do |vulnerability| %>
+		      <tr>
+		        <td><%= vulnerability.name %></td>
+		        <td><%= vulnerability.url %></td>
+		        <td>
+		          <%= link_to vulnerability_path(vulnerability), class: "btn btn-primary" do %>
+							  <i class="fas fa-eye"></i>
+							<% end %>
+
+		          <%= button_to triage_vulnerability_path(vulnerability), method: :patch, class: "btn btn-success btn-square", form: { class: "d-inline col-1" } do %>
+							  <i class="fas fa-check"></i>
+							<% end %>
+		        </td>
+		      </tr>
+		    <% end %>
+		  </tbody>
+		</table>    
+  </div>
+</div>

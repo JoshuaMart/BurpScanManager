@@ -1,0 +1,20 @@
+<div class="card mb-4">
+  <div class="card-header"><strong>Manage settings</strong><span class="small ms-1"></span></div>
+    <div class="card-body">
+      <%= form_with url: settings_path, method: :put, local: true, class: "form-horizontal" do |form| %>
+			  <% @settings.each do |setting| %>
+			    <div class="mb-3 row">
+			      <label class="col-sm-4 col-form-label"><%= setting.name.humanize %></label>
+			      <div class="col-sm-8">
+			        <%= text_field_tag "settings[#{setting.id}]", setting.value, placeholder: setting.value, class: "form-control" %>
+			      </div>
+			    </div>
+			  <% end %>
+			  <div class="row">
+			    <div class="col-sm-10 offset-sm-4">
+			      <%= form.submit "Save Settings", class: "btn btn-primary" %>
+			    </div>
+			  </div>
+			<% end %>
+    </div>
+</div>

@@ -7,6 +7,7 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/all.css"/>
     <%= javascript_importmap_tags %>
     <%= javascript_include_tag 'coreui/color-modes.js' %>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
@@ -73,28 +74,20 @@
       </div>
       <ul class="sidebar-nav simplebar-scrollable-y" data-coreui="navigation" data-simplebar="init"><div class="simplebar-wrapper" style="margin: -8px;"><div class="simplebar-height-auto-observer-wrapper"><div class="simplebar-height-auto-observer"></div></div><div class="simplebar-mask"><div class="simplebar-offset" style="right: 0px; bottom: 0px;"><div class="simplebar-content-wrapper" tabindex="0" role="region" aria-label="scrollable content" style="height: 100%; overflow: hidden scroll;"><div class="simplebar-content" style="padding: 8px;">
         <li class="nav-item">
-          <%= link_to root_path, class: "nav-link" do %>
+          <%= link_to new_scan_path, class: "nav-link" do %>
             <svg class="nav-icon">
               <use xlink:href="<%= asset_path('icons/free.svg#cil-speedometer') %>"></use>
             </svg>
-            Dashboard
+            Launch Scan
           <% end %>
         </li>
-        <li class="nav-title">Lorem Ispum</li>
-        <li class="nav-item"><a class="nav-link" href="typography.html">
+        <li class="nav-item">
+          <%= link_to vulnerabilities_path, class: "nav-link" do %>
             <svg class="nav-icon">
-              <use xlink:href="<%= image_path 'icons/free.svg#cil-pencil' %>"></use>
-            </svg> Sub Form 1</a></li>
-
-        <li class="nav-title">Lorem Ispum</li>
-        <li class="nav-group"><a class="nav-link nav-group-toggle" href="#">
-            <svg class="nav-icon">
-              <use xlink:href="<%= image_path 'icons/free.svg#cil-notes' %>"></use>
-            </svg> Sub Form 2</a>
-          <ul class="nav-group-items compact">
-            <li class="nav-item"><a class="nav-link" href="forms/form-control.html"><span class="nav-icon"><span class="nav-icon-bullet"></span></span> ...</a></li>
-            <li class="nav-item"><a class="nav-link" href="forms/select.html"><span class="nav-icon"><span class="nav-icon-bullet"></span></span> ...</a></li>
-          </ul>
+              <use xlink:href="<%= asset_path('icons/free.svg#cil-speedometer') %>"></use>
+            </svg>
+            Scan results
+          <% end %>
         </li>
       </div></div></div></div></div></ul>
     </div>
@@ -111,7 +104,7 @@
           </button>
           <ul class="header-nav d-none d-lg-flex">
             <li class="nav-item"><%= link_to 'Users', users_path, class: 'nav-link' %></li>
-            <li class="nav-item"><a class="nav-link" href="#">Settings</a></li>
+            <li class="nav-item"><%= link_to 'Settings', settings_path, class: 'nav-link' %></a></li>
           </ul>
           <ul class="header-nav ms-auto">
             <li class="nav-item"><a class="nav-link" href="#">

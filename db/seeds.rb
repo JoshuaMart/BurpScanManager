@@ -9,3 +9,11 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+
+User.create(email: 'admin@admin.tld', username: 'admin', password: 'password')
+
+Setting.create(name: 'Slack WebHook', value: '')
+Setting.create(name: 'Burp API URL', value: '')
+Setting.create(name: 'Burp API Token', value: '')
+Setting.create(name: 'Burp Crawl Configuration Name', value: '')
+Setting.create(name: 'Burp Audit Configuration Name', value: '')

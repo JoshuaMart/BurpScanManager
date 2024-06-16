@@ -1,0 +1,14 @@
+<div class="card mb-4">
+  <div class="card-header"><strong>Launch new scan</strong><span class="small ms-1"></span></div>
+    <div class="card-body">
+      <%= form_with scope: :scan, url: scans_path, local: true do |form| %>
+        <div class="mb-3">
+          <%= form.label :urls, "Enter URLs (comma-separated):", class: "form-label", for: "scanUrlsTextarea" %>
+          <%= form.text_area :urls, id: "scanUrlsTextarea", class: "form-control", rows: 3 %>
+        </div>
+        <div class="actions">
+          <%= form.submit "Start Scan", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+</div>

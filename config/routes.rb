@@ -11,4 +11,15 @@ Rails.application.routes.draw do
   get '/500', to: 'errors#internal_server_error'
 
   resources :users
+  
+  resources :settings, only: [:index, :update]
+  put 'settings', to: 'settings#update'
+
+  resources :scans, only: [:new, :create]
+
+  resources :vulnerabilities, only: [:index, :show] do
+    member do
+      patch :triage
+    end
+  end
 end

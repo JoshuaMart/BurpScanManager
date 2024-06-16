@@ -1,0 +1,14 @@
+<div class="card mb-4">
+  <div class="card-header"><strong><%= @vulnerability.name %></strong><span class="small ms-1"></span></div>
+    <div class="card-body">
+    	<strong>URL :</strong> <%= @vulnerability.url %><br>
+    	<strong>Payload :</strong> <%= @vulnerability.payload %>
+  </div>
+</div>
+
+<div class="card mb-4">
+  <div class="card-header"><strong>Description</strong><span class="small ms-1"></span></div>
+    <div class="card-body">
+    	<%= raw(@vulnerability.description) %>
+  </div>
+</div>
