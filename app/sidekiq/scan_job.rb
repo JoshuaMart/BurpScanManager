@@ -33,8 +33,11 @@ class ScanJob
 
   def launch_scan(options)
     url = File.join(options['burp_url'], '/scan')
+    Typhoeus.post(url, body: scan_options(options))
+  end
 
-    body = {
+  def scan_options(options)
+    {
       protocol_option: 'specified',
       scan_configurations: [
         {
@@ -48,8 +51,6 @@ class ScanJob
       ],
       urls: [options['url']]
     }.to_json
-
-    Typhoeus.post(url, body:)
   end
 
   def get_scan(options, scan_id)
