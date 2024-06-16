@@ -1,13 +1,12 @@
 # app/controllers/scans_controller.rb
 
 class ScansController < ApplicationController
-  before_action :check_settings, only: [:new, :create]
+  before_action :check_settings, only: %i[new create]
 
-  def new
-  end
+  def new; end
 
   def create
-    urls = scan_params[:urls]&.split(',').map(&:strip)
+    urls = scan_params[:urls]&.split(',')&.map(&:strip)
 
     options = build_options
 
@@ -16,7 +15,7 @@ class ScansController < ApplicationController
       ScanJob.perform_async(options.to_json)
     end
 
-    redirect_to scans_path, notice: "Scans started successfully."
+    redirect_to scans_path, notice: 'Scans started successfully.'
   end
 
   private
@@ -39,8 +38,8 @@ class ScansController < ApplicationController
   def check_settings
     missing_settings = Setting.any? { |v| v[:value].empty? }
 
-    if missing_settings
-      redirect_to settings_path, alert: "Please fill in all required settings before launching a scan"
-    end
+    return unless missing_settings
+
+    redirect_to settings_path, alert: 'Please fill in all required settings before launching a scan'
   end
 end

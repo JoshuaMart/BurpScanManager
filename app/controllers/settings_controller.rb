@@ -7,7 +7,7 @@ class SettingsController < ApplicationController
   def update
     setting_params&.each do |id, value|
       setting = Setting.find(id)
-      setting.update(value: value)
+      setting.update(value:)
     end
 
     redirect_to settings_path, notice: 'Settings updated successfully.'

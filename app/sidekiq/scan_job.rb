@@ -13,7 +13,7 @@ class ScanJob
     scan_id = resp.headers['Location']
 
     result = { 'scan_status' => 'starting' }
-    while ['starting', 'crawling', 'auditing'].include?(result['scan_status']) 
+    while %w[starting crawling auditing].include?(result['scan_status'])
       result = get_scan(options, scan_id)
       sleep(10)
     end
@@ -46,7 +46,7 @@ class ScanJob
       urls: [options['url']]
     }.to_json
 
-    Typhoeus.post(url, body: body)
+    Typhoeus.post(url, body:)
   end
 
   def get_scan(options, scan_id)
@@ -67,7 +67,7 @@ class ScanJob
 
       vulnerability = issue['name']
       url = CGI.unescape(issue.dig('evidence', 0, 'request_response', 'url'))
-      description = CGI.unescapeHTML(description)&.gsub(/<(?!\/?(b|br)(>|\s.*>))/, '&lt;')
+      description = CGI.unescapeHTML(description)&.gsub(%r{<(?!/?(b|br)(>|\s.*>))}, '&lt;')
       payload_b64 = issue.dig('evidence', 0, 'detail', 'payload', 'bytes')
       payload = Base64.decode64(payload_b64)
       severity = issue['severity']
