@@ -3,8 +3,16 @@
     <div class="card-body">
       <%= form_with scope: :scan, url: scans_path, local: true do |form| %>
         <div class="mb-3">
-          <%= form.label :urls, "Enter URLs (comma-separated):", class: "form-label", for: "scanUrlsTextarea" %>
+          <%= form.label :urls, "Enter URLs (new line separated):", class: "form-label", for: "scanUrlsTextarea" %>
           <%= form.text_area :urls, id: "scanUrlsTextarea", class: "form-control", rows: 3 %>
+        </div>
+        <div class="mb-3">
+          <%= form.label :crawl, "Crawl Configuration (optional) :", class: "form-label" %>
+          <%= form.text_field :crawl, class: "form-control" %>
+        </div>
+        <div class="mb-3">
+          <%= form.label :audit, "Audit Configuration (optional) :", class: "form-label" %>
+          <%= form.text_field :audit, class: "form-control" %>
         </div>
         <div class="actions">
           <%= form.submit "Start Scan", class: "btn btn-primary" %>

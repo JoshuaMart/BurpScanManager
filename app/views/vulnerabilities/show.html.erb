@@ -12,3 +12,7 @@
     	<%= raw(@vulnerability.description) %>
   </div>
 </div>
+
+<%= button_to triage_vulnerability_path(@vulnerability), method: :patch, class: "btn btn-primary", form: { class: "d-inline col-1" } do %>
+  Mark as Triaged
+<% end %>
