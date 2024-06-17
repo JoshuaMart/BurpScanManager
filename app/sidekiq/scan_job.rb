@@ -68,15 +68,47 @@ class ScanJob
   def parse_issues(issues)
     issues.each do |vuln|
       issue = vuln['issue']
+      new_vuln = build_new_vuln(issue)
 
-      vulnerability = issue['name']
-      url = CGI.unescape(issue.dig('evidence', 0, 'request_response', 'url'))
-      description = CGI.unescapeHTML(issue['description'])&.gsub(%r{<(?!/?(b|br)(>|\s.*>))}, '&lt;')
-      payload_b64 = issue.dig('evidence', 0, 'detail', 'payload', 'bytes')
-      payload = Base64.decode64(payload_b64)
-      severity = issue['severity']
+      Vulnerability.create(new_vuln)
+    end
+  end
 
-      Vulnerability.create(name: vulnerability, url:, description:, payload:, severity:)
+  def build_new_vuln(issue)
+    {
+      name: issue['name'],
+      url: extract_url(issue),
+      description: extract_description(issue),
+      payload: extract_payload(issue),
+      severity: issue['severity']
+    }
+  end
+
+  def extract_url(issue)
+    url = issue.dig('evidence', 0, 'request_response', 'url')
+    if url
+      CGI.unescapeHTML(url)
+    else
+      notif("Error when extracting URL for issue : #{issue}")
+      nil
+    end
+  end
+
+  def extract_description(issue)
+    description = issue['description']
+    if description
+      CGI.unescapeHTML(description)&.gsub(%r{<(?!/?(b|br)(>|\s.*>))}, '&lt;')
+    else
+      'No description'
+    end
+  end
+
+  def extract_payload(issue)
+    b64_payload = issue.dig('evidence', 0, 'detail', 'payload', 'bytes')
+    if b64_payload
+      Base64.decode64(payload_b64)
+    else
+      '/'
     end
   end
 end
