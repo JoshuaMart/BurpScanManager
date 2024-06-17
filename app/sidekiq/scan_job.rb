@@ -106,7 +106,7 @@ class ScanJob
   def extract_payload(issue)
     b64_payload = issue.dig('evidence', 0, 'detail', 'payload', 'bytes')
     if b64_payload
-      Base64.decode64(payload_b64)
+      Base64.decode64(b64_payload)
     else
       '/'
     end
