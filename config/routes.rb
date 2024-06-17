@@ -7,9 +7,6 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root 'home#index'
 
-  get '/404', to: 'errors#not_found'
-  get '/500', to: 'errors#internal_server_error'
-
   resources :users
   
   resources :settings, only: [:index, :update]
