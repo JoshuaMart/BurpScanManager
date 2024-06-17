@@ -71,7 +71,7 @@ class ScanJob
 
       vulnerability = issue['name']
       url = CGI.unescape(issue.dig('evidence', 0, 'request_response', 'url'))
-      description = CGI.unescapeHTML(description)&.gsub(%r{<(?!/?(b|br)(>|\s.*>))}, '&lt;')
+      description = CGI.unescapeHTML(issue['description'])&.gsub(%r{<(?!/?(b|br)(>|\s.*>))}, '&lt;')
       payload_b64 = issue.dig('evidence', 0, 'detail', 'payload', 'bytes')
       payload = Base64.decode64(payload_b64)
       severity = issue['severity']
