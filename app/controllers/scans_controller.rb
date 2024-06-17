@@ -10,7 +10,7 @@ class ScansController < ApplicationController
     urls = scan_params[:urls]&.split&.map(&:strip)
 
     options = build_options(scan_params)
-    
+
     urls.each do |url|
       options[:url] = url
       ScanJob.perform_async(options.to_json)
