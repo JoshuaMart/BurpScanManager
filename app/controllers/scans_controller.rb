@@ -16,7 +16,7 @@ class ScansController < ApplicationController
       ScanJob.perform_async(options.to_json)
     end
 
-    redirect_to scans_path, notice: 'Scans started successfully.'
+    redirect_to new_scan_path, notice: 'Scans started successfully.'
   end
 
   private
