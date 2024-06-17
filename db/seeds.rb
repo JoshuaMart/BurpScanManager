@@ -10,7 +10,10 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-User.create(email: 'admin@admin.tld', username: 'admin', password: 'password')
+password = SecureRandom.hex(10)
+User.create(email: 'admin@admin.tld', username: 'admin', password: password)
+
+puts "[>] User '\e[0;32madmin\e[0m' was created with password '\e[0;32m#{password}\e[0m'.\e[0m\n"
 
 Setting.create(name: 'Slack WebHook', value: '')
 Setting.create(name: 'Burp API URL', value: '')
