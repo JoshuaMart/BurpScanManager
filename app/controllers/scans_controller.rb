@@ -8,11 +8,19 @@ class ScansController < ApplicationController
 
   def create
     urls = scan_params[:urls]&.split&.map(&:strip)
+    force_scan = scan_params[:force_scan] == '1'
 
     options = build_options(scan_params)
 
     urls.each do |url|
       options[:url] = url
+
+      scan_status = ScanStatus.find_or_initialize_by(url:)
+      next unless scan_url?(scan_status, force_scan)
+
+      scan_status.state = 'Waiting'
+      scan_status.save
+
       ScanJob.perform_async(options.to_json)
     end
 
@@ -20,6 +28,12 @@ class ScansController < ApplicationController
   end
 
   private
+
+  def scan_url?(scan_status, force_scan)
+    scan_status.new_record? ||
+      scan_status.state == 'Error' ||
+      (force_scan && !['Waiting', 'In Progress'].include?(scan_status.state))
+  end
 
   def build_options(scan_params)
     api_url = Setting.find_by(name: 'Burp API URL')&.value
@@ -33,7 +47,7 @@ class ScansController < ApplicationController
   end
 
   def scan_params
-    params.require(:scan).permit(:urls, :crawl, :audit)
+    params.require(:scan).permit(:urls, :crawl, :audit, :force_scan)
   end
 
   def check_settings

@@ -14,9 +14,32 @@
           <%= form.label :audit, "Audit Configuration (optional) :", class: "form-label" %>
           <%= form.text_field :audit, class: "form-control" %>
         </div>
+        <div class="mb-3">
+          <%= form.check_box :force_scan, id: 'forceScanCheckbox', class: "form-check-input" %>
+          <%= form.label :force_scan, "Force scan", class: "form-label" %>
+        </div>
+
         <div class="actions">
-          <%= form.submit "Start Scan", class: "btn btn-primary" %>
+          <%= form.submit "Start Scan", class: "btn btn-primary", id: "scanSubmitButton" %>
         </div>
       <% end %>
     </div>
 </div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    var submitButton = document.getElementById('scanSubmitButton');
+    var forceScanCheckbox = document.getElementById('forceScanCheckbox');
+
+    submitButton.addEventListener('click', function(event) {
+      if (forceScanCheckbox.checked) {
+        // Confirm if "Force Scan" is checked
+        var confirmResult = confirm("Are you sure you want to force the scan ?");
+        if (!confirmResult) {
+          // Cancel form submission if user does not confirm
+          event.preventDefault();
+        }
+      }
+    });
+  });
+</script>

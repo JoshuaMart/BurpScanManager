@@ -7,12 +7,17 @@ class ScanJob
 
   def perform(*args)
     options = JSON.parse(args.first)
+    scan_status = ScanStatus.find_by(url: options['url'])
+    scan_status.update(state: 'In Progress')
+
     resp = launch_scan(options)
 
     unless resp&.code == 201
+      scan_status.update(state: 'Error')
       notif("Error starting scan of #{options['url']}")
       return
     end
+
     scan_id = resp.headers['Location']
 
     result = { 'scan_status' => 'starting' }
@@ -22,10 +27,12 @@ class ScanJob
     end
 
     unless result['scan_status'] == 'succeeded'
+      scan_status.update(state: 'Error')
       notif("Error with scan ID #{scan_id} - result : #{result}")
       return
     end
 
+    scan_status.update(state: 'Finished')
     parse_issues(result['issue_events'])
   end
 
