@@ -92,7 +92,12 @@ class ScanJob
   end
 
   def extract_url(issue)
-    url = issue.dig('evidence', 0, 'request_response', 'url')
+    url = if issue.dig('evidence', 0, 'request_response')
+            issue.dig('evidence', 0, 'request_response', 'url')
+          else
+            issue.dig('evidence', 0, 'first_evidence', 'request_response', 'url')
+          end
+
     if url
       CGI.unescape(url)
     else
