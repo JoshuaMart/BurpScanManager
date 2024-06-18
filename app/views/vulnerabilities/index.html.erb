@@ -4,14 +4,16 @@
       <table class="table">
 		  <thead>
 		    <tr>
-		      <th width="30%">Name</th>
-		      <th width="60%">URL</th>
+		    	<th width="5%">#</th>
+		      <th width="25%">Name</th>
+		      <th width="55%">URL</th>
 		      <th width="10%">Action</th>
 		    </tr>
 		  </thead>
 		  <tbody>
 		    <% @vulnerabilities.each do |vulnerability| %>
 		      <tr>
+		      	<td><span class="badge text-bg-<%= vulnerability_class(vulnerability.severity) %>"><%= vulnerability.severity %></span></td>
 		        <td><%= vulnerability.name %></td>
 		        <td><%= vulnerability.url %></td>
 		        <td>
