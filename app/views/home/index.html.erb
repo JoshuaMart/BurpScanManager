@@ -1,1 +1,49 @@
-Home#Index
+<div class="card mb-4">
+  <div class="card-header"><strong>List of vulnerabilities</strong><span class="small ms-1"></span></div>
+  <div class="card-body">
+  	<select id="statusFilter" class="form-control mb-3">
+		  <option value="">All</option>
+		  <option value="Waiting">Waiting</option>
+		  <option value="In Progress">In Progress</option>
+		  <option value="Finished">Finished</option>
+		  <option value="Error">Error</option>
+		</select>
+
+		<table class="table">
+		  <thead>
+		    <tr>
+		      <th>URL</th>
+		      <th>Status</th>
+		    </tr>
+		  </thead>
+		  <tbody id="scanStatusList">
+		    <% @scan_statuses.each do |status| %>
+		      <tr class="scan-status-row" data-status="<%= status.state %>">
+		        <td><%= status.url %></td>
+		        <td><span class="badge text-bg-<%= status_class(status.state) %>"><%= status.state %></span></td>
+		      </tr>
+		    <% end %>
+		  </tbody>
+		</table>
+  </div>
+</div>
+
+<script>
+  document.getElementById('statusFilter').addEventListener('change', function() {
+    var selectedStatus = this.value;
+    var rows = document.querySelectorAll('.scan-status-row');
+    rows.forEach(row => {
+      if (selectedStatus === "" || row.getAttribute('data-status') === selectedStatus) {
+        row.style.display = '';
+      } else {
+        row.style.display = 'none';
+      }
+    });
+  });
+</script>
+
+<style>
+  .badge.Waiting, .badge.In-Progress { background-color: blue; }
+  .badge.Finished { background-color: green; }
+  .badge.Error { background-color: red; }
+</style>

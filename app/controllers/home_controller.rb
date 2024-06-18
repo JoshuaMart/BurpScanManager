@@ -4,6 +4,6 @@
 class HomeController < ApplicationController
   # GET /
   def index
-    render template: 'home/index'
+    @scan_statuses = ScanStatus.all
   end
 end
