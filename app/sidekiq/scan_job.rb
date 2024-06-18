@@ -68,7 +68,7 @@ class ScanJob
   end
 
   def notif(msg)
-    webhook = Setting.find_by(name: 'Slack Webhook')&.value
+    webhook = Setting.find_by(name: 'Slack WebHook')&.value
     Typhoeus.post(webhook, headers: { 'Content-Type' => 'application/json' }, body: { text: msg }.to_json)
   end
 
