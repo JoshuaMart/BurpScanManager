@@ -96,7 +96,7 @@ class ScanJob
     if url
       CGI.unescape(url)
     else
-      notif("Error when extracting URL for issue : #{issue}")
+      notif("Error when extracting URL for issue :```#{JSON.generate(issue).truncate(2_000)}```")
       nil
     end
   end
