@@ -15,7 +15,7 @@
 		      <tr>
 		      	<td><span class="badge text-bg-<%= vulnerability_class(vulnerability.severity) %>"><%= vulnerability.severity %></span></td>
 		        <td><%= vulnerability.name %></td>
-		        <td><%= vulnerability.url %></td>
+		        <td><p><%= vulnerability.url.truncate(100) %></p></td>
 		        <td>
 		          <%= link_to vulnerability_path(vulnerability), class: "btn btn-primary" do %>
 							  <i class="fas fa-eye"></i>
