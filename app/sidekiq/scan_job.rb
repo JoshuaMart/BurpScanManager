@@ -87,7 +87,6 @@ class ScanJob
   def extract_url(issue)
     url = issue.dig('evidence', 0, 'request_response', 'url')
     if url
-      CGI.unescapeHTML(url)
       CGI.unescape(url)
     else
       notif("Error when extracting URL for issue : #{issue}")
