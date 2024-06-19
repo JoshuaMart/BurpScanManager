@@ -92,10 +92,17 @@ class ScanJob
   end
 
   def extract_url(issue)
-    url = if issue.dig('evidence', 0, 'request_response')
-            issue.dig('evidence', 0, 'request_response', 'url')
-          else
-            issue.dig('evidence', 0, 'first_evidence', 'request_response', 'url')
+    evidence = issue['evidence'] || []
+
+    request_response_0 = evidence.dig(0, 'request_response')
+    first_evidence_request_response = evidence.dig(0, 'first_evidence', 'request_response')
+
+    url = if request_response_0
+            request_response_0['url']
+          elsif first_evidence_request_response
+            first_evidence_request_response['url']
+          elsif evidence.empty?
+            File.join(issue['origin'], issue['path'])
           end
 
     if url
